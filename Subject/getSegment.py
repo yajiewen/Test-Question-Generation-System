@@ -38,6 +38,4 @@ def segmentList(sentence):
 
     # print(word_list)
     # print(word_nature_index_list)
-    # print(entityDict)
-    
     return word_list, word_nature_index_list
