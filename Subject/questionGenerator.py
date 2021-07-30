@@ -8,6 +8,7 @@ from setting import entityDictFileName
 from gettAnwser import getThreeTimeWeongAnwser
 from m_isok import m_is_ok
 from t_isok import t_is_ok
+from ns_isok import ns_is_ok
 import pickle
 import random
 import json
@@ -88,6 +89,7 @@ def qusGenrator(sentence):
                         questionList.append(questionDict.copy())   #字典是引用类型
             
             elif triad[1] == 'ns':
+                if ns_is_ok(word_nature_index_list,index):
                     # 生成 subject
                     word_list_copy[triad[2]] = anwserToken
                     questionDict['subject'] =''.join(word_list_copy)
