@@ -64,10 +64,19 @@ def qusGenrator(sentence):
                     # 生成 anwser
                     questionDict['rightAnswer'] = triad[0]
 
+                    # # 生成 wrong anwser
+                    # questionDict['wrongAnswer1'] = str( stringToNumber(triad[0]) + 1 ) 
+                    # questionDict['wrongAnswer2'] = str( stringToNumber(triad[0]) + 2 ) 
+                    # questionDict['wrongAnswer3'] = str( stringToNumber(triad[0]) + 3 ) 
                     # 生成 wrong anwser
-                    questionDict['wrongAnswer1'] = str( stringToNumber(triad[0]) + 1 ) 
-                    questionDict['wrongAnswer2'] = str( stringToNumber(triad[0]) + 2 ) 
-                    questionDict['wrongAnswer3'] = str( stringToNumber(triad[0]) + 3 ) 
+                    origin_num = stringToNumber(triad[0])
+                    for index_n,key in enumerate(['wrongAnswer1','wrongAnswer2','wrongAnswer3']):
+                        randomNum = random.randint(0,100)
+                        if randomNum % 2 == 0 and origin_num - (index_n + 1) > 0:
+                            questionDict[key] = str( stringToNumber(triad[0]) - (index_n + 1) )
+                        else:
+                            questionDict[key] = str( stringToNumber(triad[0]) + (index_n + 1) )
+
                     # 插入题目list
                     questionList.append(questionDict.copy())   #字典是引用类型
             elif triad[1] == 't':

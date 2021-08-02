@@ -13,7 +13,6 @@ def getquestion():
     if request.method == 'POST':
         data = request.form['text']
         data = cleanData(data)
-        # getSummary(data)
 
         sentences = sentenseList(data)
         questiondict = {}

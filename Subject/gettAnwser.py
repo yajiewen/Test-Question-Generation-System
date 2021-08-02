@@ -55,14 +55,6 @@ def getThreeTimeWeongAnwser(tirad,entityDict):
             while randnum == int(last_num_block) or last_num_block  in three_wrong_last_num_block:
                 randnum = random.randint(1,12)
             three_wrong_last_num_block.append(str(randnum))
-
-    elif int(last_num_block) >=1 and int(last_num_block)<= 28: #day
-        for count in range(3):
-            randnum = random.randint(1,28)
-
-            while randnum == int(last_num_block) or last_num_block  in three_wrong_last_num_block:
-                randnum = random.randint(1,28)
-            three_wrong_last_num_block.append(str(randnum))
     elif int(last_num_block) >=0 and int(last_num_block)<= 23: #hour
         for count in range(3):
             randnum = random.randint(1,23)
@@ -70,7 +62,16 @@ def getThreeTimeWeongAnwser(tirad,entityDict):
             while randnum == int(last_num_block) or last_num_block  in three_wrong_last_num_block:
                 randnum = random.randint(1,23)
             three_wrong_last_num_block.append(str(randnum))
-    elif int(last_num_block) >=0 and int(last_num_block)<= 59: #minit,seconds
+
+    elif int(last_num_block) >=1 and int(last_num_block)<= 31: #day
+        for count in range(3):
+            randnum = random.randint(1,28)
+
+            while randnum == int(last_num_block) or last_num_block  in three_wrong_last_num_block:
+                randnum = random.randint(1,28)
+            three_wrong_last_num_block.append(str(randnum))
+
+    elif int(last_num_block) >=0 and int(last_num_block)<= 59: #minit, seconds
         for count in range(3):
             randnum = random.randint(1,59)
 
