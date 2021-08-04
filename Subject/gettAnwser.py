@@ -49,17 +49,17 @@ def getThreeTimeWeongAnwser(tirad,entityDict):
     #更具最后一个可能是什么时间生成wrongAnwser
     last_num_block = block_list[last_num_block_index] #time 中的last number
     if int(last_num_block) >=1 and int(last_num_block)<= 12: # month
+        num_list = []
         for count in range(3):
             randnum = random.randint(1,12)
-
-            while randnum == int(last_num_block) or last_num_block  in three_wrong_last_num_block:
+            while randnum == int(last_num_block) or str(randnum)  in three_wrong_last_num_block:
                 randnum = random.randint(1,12)
             three_wrong_last_num_block.append(str(randnum))
     elif int(last_num_block) >=0 and int(last_num_block)<= 23: #hour
         for count in range(3):
             randnum = random.randint(1,23)
 
-            while randnum == int(last_num_block) or last_num_block  in three_wrong_last_num_block:
+            while randnum == int(last_num_block) or str(randnum)  in three_wrong_last_num_block:
                 randnum = random.randint(1,23)
             three_wrong_last_num_block.append(str(randnum))
 
@@ -67,7 +67,7 @@ def getThreeTimeWeongAnwser(tirad,entityDict):
         for count in range(3):
             randnum = random.randint(1,28)
 
-            while randnum == int(last_num_block) or last_num_block  in three_wrong_last_num_block:
+            while randnum == int(last_num_block) or str(randnum)  in three_wrong_last_num_block:
                 randnum = random.randint(1,28)
             three_wrong_last_num_block.append(str(randnum))
 
@@ -75,7 +75,7 @@ def getThreeTimeWeongAnwser(tirad,entityDict):
         for count in range(3):
             randnum = random.randint(1,59)
 
-            while randnum == int(last_num_block) or last_num_block  in three_wrong_last_num_block:
+            while randnum == int(last_num_block) or str(randnum)  in three_wrong_last_num_block:
                 randnum = random.randint(1,59)
             three_wrong_last_num_block.append(str(randnum))
     else:
