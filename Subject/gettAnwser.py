@@ -35,7 +35,7 @@ def getThreeTimeWeongAnwser(tirad,entityDict):
     block_list.append(notnumblock)
     block_list.append(numblock)
         
-    print(block_list)
+    # print(block_list)
 
     # 找到最后一个时间index
     last_num_block_index = 0

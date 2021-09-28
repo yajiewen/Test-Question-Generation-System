@@ -5,14 +5,14 @@ from pyhanlp import HanLP
 from pyhanlp import JClass
 import pickle
 from setting import entityDictFileName
-def segmentList(sentence):
+def segmentList(sentence,nshort_segment):
     # NShortSegment = JClass("com.hankcs.hanlp.seg.NShort.NShortSegment")
     # nshort_segment = NShortSegment().enableCustomDictionary(
     # False).enablePlaceRecognize(True).enableOrganizationRecognize(True)
     # nshort_segment = HanLP.newSegment("crf") #这个效果比上面的NSort效果要好
-    NShortSegment = JClass('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer')
-    nshort_segment = NShortSegment().enableCustomDictionary(
-    False).enablePlaceRecognize(True).enableOrganizationRecognize(True)
+    # NShortSegment = JClass('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer')
+    # nshort_segment = NShortSegment().enableCustomDictionary(
+    # False).enablePlaceRecognize(True).enableOrganizationRecognize(True)
     word_list = []
     word_nature_index_list = []
     word_nature_list = []
@@ -21,7 +21,7 @@ def segmentList(sentence):
 
     for word in nshort_segment.seg(sentence):
         word_nature_list1.append([str(word.word),str(word.nature)])
-    print(word_nature_list1)
+    # print(word_nature_list1)
     # 字典整合(比如一个nt会被识别为多个nt,需要把这几个合起来,一个时间t会被分为多个时间t,也需要合起来)
     for tuple in word_nature_list1:
         if not word_nature_list:

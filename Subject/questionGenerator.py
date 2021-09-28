@@ -36,11 +36,9 @@ def dictPrint(dictData):
     print('}')
 
 
-def qusGenrator(sentence):
+def qusGenrator(sentence,nshort_segment,entityDict):
 
-    # read dict 
-    entityDict = pickle.load(open(entityDictFileName,'rb'))
-    word_list, word_nature_index_list = segmentList(sentence)
+    word_list, word_nature_index_list = segmentList(sentence,nshort_segment)
 
     questionList = []
     questionDict = {
@@ -86,9 +84,9 @@ def qusGenrator(sentence):
                         questionDict['subject'] =''.join(word_list_copy)
                         # 生成 anwser
                         questionDict['rightAnswer'] = triad[0]
-                        #扩充answer library
-                        if triad[0] not in entityDict[triad[1]]:
-                            entityDict[triad[1]].append(triad[0])
+                        # #扩充answer library
+                        # if triad[0] not in entityDict[triad[1]]:
+                        #     entityDict[triad[1]].append(triad[0])
                         # 生成 wrong anwser
                         wrongAnswers = getThreeTimeWeongAnwser(triad, entityDict)
                         questionDict['wrongAnswer1'] = wrongAnswers[0]
@@ -115,8 +113,7 @@ def qusGenrator(sentence):
                     # 插入题目list
                     questionList.append(questionDict.copy())   #字典是引用类型
                     
-
-    pickle.dump(entityDict,open(entityDictFileName,'wb'))      
-    for dictData in questionList:
-        dictPrint(dictData)
+     
+    # for dictData in questionList:
+    #     dictPrint(dictData)
     return questionList
