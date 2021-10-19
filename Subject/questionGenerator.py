@@ -11,6 +11,7 @@ from t_isok import t_is_ok
 from ns_isok import ns_is_ok
 import pickle
 import random
+import math
 import json
 
 def stringToNumber(stringnum):
@@ -62,18 +63,32 @@ def qusGenrator(sentence,nshort_segment,entityDict):
                     # 生成 anwser
                     questionDict['rightAnswer'] = triad[0]
 
-                    # # 生成 wrong anwser
-                    # questionDict['wrongAnswer1'] = str( stringToNumber(triad[0]) + 1 ) 
-                    # questionDict['wrongAnswer2'] = str( stringToNumber(triad[0]) + 2 ) 
-                    # questionDict['wrongAnswer3'] = str( stringToNumber(triad[0]) + 3 ) 
                     # 生成 wrong anwser
                     origin_num = stringToNumber(triad[0])
-                    for index_n,key in enumerate(['wrongAnswer1','wrongAnswer2','wrongAnswer3']):
+
+                    threeWrongNumList = []
+                    index_n = 1
+                    wrongNum = ''
+                    while len(threeWrongNumList) < 3:
                         randomNum = random.randint(0,100)
-                        if randomNum % 2 == 0 and origin_num - (index_n + 1) > 0:
-                            questionDict[key] = str( stringToNumber(triad[0]) - (index_n + 1) )
+                        #浮点数处理
+                        if '.' in triad[0]:
+                            if randomNum % 2 == 0:
+                                wrongNum = str( round(origin_num * (index_n + 3),2) )
+                            else:
+                                wrongNum = str( round(origin_num / (index_n + 2),2) )
                         else:
-                            questionDict[key] = str( stringToNumber(triad[0]) + (index_n + 1) )
+                            if randomNum % 2 == 0:
+                                wrongNum = str( math.ceil(origin_num * ( (index_n + 3) * 2)) )
+                            else:
+                                wrongNum = str( math.ceil(origin_num / ( (index_n + 1) * 2)) )
+                        index_n += 0.5
+                        if wrongNum not in threeWrongNumList:
+                            threeWrongNumList.append(wrongNum)
+
+
+                    for key,wrongNum in zip(['wrongAnswer1','wrongAnswer2','wrongAnswer3'], threeWrongNumList):
+                        questionDict[key] = wrongNum
 
                     # 插入题目list
                     questionList.append(questionDict.copy())   #字典是引用类型
@@ -84,9 +99,6 @@ def qusGenrator(sentence,nshort_segment,entityDict):
                         questionDict['subject'] =''.join(word_list_copy)
                         # 生成 anwser
                         questionDict['rightAnswer'] = triad[0]
-                        # #扩充answer library
-                        # if triad[0] not in entityDict[triad[1]]:
-                        #     entityDict[triad[1]].append(triad[0])
                         # 生成 wrong anwser
                         wrongAnswers = getThreeTimeWeongAnwser(triad, entityDict)
                         questionDict['wrongAnswer1'] = wrongAnswers[0]

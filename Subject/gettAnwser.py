@@ -37,14 +37,35 @@ def getThreeTimeWeongAnwser(tirad,entityDict):
         
     # print(block_list)
 
-    # 找到最后一个时间index
+    # 找到时间中最后一个数字的index
     last_num_block_index = 0
     for index,item in enumerate(block_list):
         if item.isdigit():
             last_num_block_index = index
+    # 找到时间中第一个数字的index
+    first_num_block_index = 0
+    for index,item in enumerate(block_list):
+        if item.isdigit():
+            first_num_block_index = index
+            break
 
-    # 生成答案
+    #改变时间中最后一个数字 和 第一个数字 生成三个假答案
+    three_wrong_last_num_block = getThreeWrongNum(block_list,last_num_block_index)
+    three_wrong_first_num_block =getThreeWrongNum(block_list,first_num_block_index)
+
+    # generate wrongAnwser
     wrongAnswers = []
+    for count in range(3):
+        block_list[last_num_block_index] = three_wrong_last_num_block[count] #把时间中最后一个数字替换为假数字
+        block_list[first_num_block_index] = three_wrong_first_num_block[count] #把时间中第一个数字替换为假数字
+        wrongAnswers.append(
+            ''.join(block_list)
+        )
+
+    return wrongAnswers
+
+def getThreeWrongNum(block_list,last_num_block_index):
+
     three_wrong_last_num_block = []
     #更具最后一个可能是什么时间生成wrongAnwser
     last_num_block = block_list[last_num_block_index] #time 中的last number
@@ -80,12 +101,11 @@ def getThreeTimeWeongAnwser(tirad,entityDict):
             three_wrong_last_num_block.append(str(randnum))
     else:
         for count in range(3):
-            three_wrong_last_num_block.append(str( int(last_num_block) - count - 1 ) )
-    # generate wrongAnwser
-    for count in range(3):
-        block_list[last_num_block_index] = three_wrong_last_num_block[count] #替换假的数字
-        wrongAnswers.append(
-            ''.join(block_list)
-        )
+            three_wrong_last_num_block.append(str( int(last_num_block) - (count + 1) *2 ) )
+            # if random.randint(0,100) % 2 == 0:
+            #     three_wrong_last_num_block.append(str( int(last_num_block) - (count + 1) *2 ) )
+            # else:
+            #     three_wrong_last_num_block.append(str( int(last_num_block) + (count + 1) *2 ) )
 
-    return wrongAnswers
+    
+    return three_wrong_last_num_block
