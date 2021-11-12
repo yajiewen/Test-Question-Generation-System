@@ -26,7 +26,6 @@ def getquestion():
         entityDict = pickle.load(open(entityDictFileName,'rb'))
         for index, sentence in enumerate(sentences):
             questionlist = qusGenrator(sentence,nshort_segment,entityDict)
-            print(entityDict)
             if questionlist:
                 questiondict[str(index)] = questionlist
             # close dict
