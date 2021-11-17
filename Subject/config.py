@@ -4,10 +4,10 @@ import multiprocessing
 
 bind = '0.0.0.0:26666'
 workers = multiprocessing.cpu_count() * 2 +1
-threads = 10
+threads = 2
 worker_class = 'gevent'
 worker_connections = 1000
-debug = True
+#debug = True
 #daemon = True
 # 访问日志目录
 accesslog = './log/access/gunicorn_access.log'
