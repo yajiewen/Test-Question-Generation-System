@@ -9,10 +9,15 @@ from pyhanlp import HanLP
 from pyhanlp import JClass
 import pickle
 from setting import entityDictFileName
-NShortSegment = ''
-nshort_segment = ''
+
+
+NShortSegment = JClass('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer')
+nshort_segment = NShortSegment().enableCustomDictionary(
+False).enablePlaceRecognize(True).enableOrganizationRecognize(True)
+print("载入模型完毕")
 
 app = Flask(__name__)
+app.config["JSON_AS_ASCII"] = False
 
 @app.route('/quesgetter',methods = ['POST'])
 def getquestion():
@@ -33,13 +38,3 @@ def getquestion():
         return jsonify(questiondict)
     else:
         return 'bad request'
-
-if __name__ == '__main__':
-    # 服务启动载入模型
-    NShortSegment = JClass('com.hankcs.hanlp.model.perceptron.PerceptronLexicalAnalyzer')
-    nshort_segment = NShortSegment().enableCustomDictionary(
-    False).enablePlaceRecognize(True).enableOrganizationRecognize(True)
-    print("载入模型完毕")
-
-    app.config["JSON_AS_ASCII"] = False
-    app.run(host='0.0.0.0',port='26666',debug=True)

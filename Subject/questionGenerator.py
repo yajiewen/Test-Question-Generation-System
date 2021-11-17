@@ -125,7 +125,4 @@ def qusGenrator(sentence,nshort_segment,entityDict):
                     # 插入题目list
                     questionList.append(questionDict.copy())   #字典是引用类型
                     
-     
-    # for dictData in questionList:
-    #     dictPrint(dictData)
     return questionList
