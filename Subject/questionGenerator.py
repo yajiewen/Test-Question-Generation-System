@@ -83,7 +83,7 @@ def qusGenrator(sentence,nshort_segment,entityDict):
                             else:
                                 wrongNum = str( math.ceil(origin_num / ( (index_n + 1) * 2)) )
                         index_n += 0.5
-                        if wrongNum not in threeWrongNumList:
+                        if wrongNum not in threeWrongNumList and wrongNum != origin_num:
                             threeWrongNumList.append(wrongNum)
 
 
