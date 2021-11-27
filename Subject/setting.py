@@ -1,3 +1,4 @@
+#coding:utf-8
 """
 config file
 """
@@ -23,7 +24,48 @@ entityDict ={
     'nmc':['乙烯', '丙烯', '氢气'],
     't':['2021年5月', '2013年7月3日', '2006年9月26日','17时24分','16时40分','17时20分','16时8分','13时36分'],
 }
+
+reasonDict={
+    'base1':{
+        'reason':['炎热的天气,外加上车间内部不通风,导致火灾','机房长期潮湿,导致线路短路'],
+        'measure':['不需要措施,相关人员加强安全意识即可']
+    }
+}
 entityDictFileName = "entityDict.pkl"
+reasonDictFileName = "reasonDict.pkl"
 
 if not os.path.exists(entityDictFileName):
     pickle.dump(entityDict,open(entityDictFileName,'wb'))
+
+if not os.path.exists(reasonDictFileName):
+    pickle.dump(reasonDict,open(reasonDictFileName,'wb'))
+
+def add_reason2dict(reasonDict,title,list):
+    if title!='':
+        if title not in reasonDict.keys() and list: #list 不能为空否则可能会创建空字典
+            reasonDict[title] = {
+                'reason':[],
+                'measure':[],
+                'write':True
+            }
+            reasonDict[title]['reason'].extend(list)
+        else:
+            if reasonDict[title]['write']:
+                reasonDict[title]['reason'].extend(list)
+
+def add_measure2dict(reasonDict,title,list):
+    if title!='':
+        if title not in reasonDict.keys() and list:
+            reasonDict[title] = {
+                'reason':[],
+                'measure':[],
+                'write':True
+            }
+            reasonDict[title]['measure'].extend(list)
+        else:
+            if reasonDict[title]['write']:
+                reasonDict[title]['measure'].extend(list)
+
+def close_write(reasonDict,title):
+    if title!='' and title in reasonDict.keys():
+        reasonDict[title]['write'] = False
