@@ -45,6 +45,26 @@ def get_story(text):
         print("row:",e.__traceback__.tb_lineno) 
         return ''
 
+def get_yuanyingfenxi(text):
+    try:
+        pattern = re.compile(r'(((.*)原因分析(\s)*))((.*)([1-9][.．、])(.*)(\n)+)+')
+        value = pattern.search(text).group()
+
+        value_pattern = re.compile(r'((.*)([1-9][.．、])(.*)(\n)+)+')
+        true_value = value_pattern.search(value).group()
+
+        true_value = re.sub(r'[1-9][.．、]','',true_value)
+
+        list = true_value.strip().split('\n')
+
+        list = remove_biaodian(list)
+        return list[:]
+    except Exception as e:
+        print(repr(e))
+        print("file:",e.__traceback__.tb_frame.f_globals['__file__'])
+        print("row:",e.__traceback__.tb_lineno) 
+        return []
+
 
 def get_shiguyuanying(text):
     try:
