@@ -1,12 +1,12 @@
 from infogetter import *
 import random
 from setting import add_measure2dict
-def get_all_measure_timu(text,reasonDict):
+def get_all_measure_timu(text,reasonDict,id):
     title = get_title(text)
 
     questiondict = {}
     try:
-        zhenggai = get_zhenggai_timu(text,reasonDict,title)
+        zhenggai = get_zhenggai_timu(text,reasonDict,title,id)
         if zhenggai:
             questiondict['corrective'] = zhenggai
     except Exception as e:
@@ -15,7 +15,7 @@ def get_all_measure_timu(text,reasonDict):
         print("row:",e.__traceback__.tb_lineno)
 
     try:
-        fangfan = get_fangfan_timu(text,reasonDict,title)
+        fangfan = get_fangfan_timu(text,reasonDict,title,id)
         if fangfan:
             questiondict['precautions'] = fangfan
     except Exception as e:
@@ -24,14 +24,15 @@ def get_all_measure_timu(text,reasonDict):
         print("row:",e.__traceback__.tb_lineno)
     return questiondict.copy()
 
-def get_fangfan_timu(text,reasonDict,title):
+def get_fangfan_timu(text,reasonDict,title,id):
     # 防范措施题目
     random_title = random.sample(reasonDict.keys(),1)[0]
     while random_title == title:
         random_title = random.sample(reasonDict.keys(),1)[0]
 
     measure_list = get_fangfancuoshi(text)
-    add_measure2dict(reasonDict,title,measure_list)
+    if id == "":
+        add_measure2dict(reasonDict,title,measure_list)
     
     dict = {}
     if len(measure_list) <3 and len(measure_list) > 0:
@@ -75,14 +76,15 @@ def get_fangfan_timu(text,reasonDict,title):
         dict['wrongAnswer3'] = measure_list[2]
     return dict.copy()
 
-def get_zhenggai_timu(text,reasonDict,title):
+def get_zhenggai_timu(text,reasonDict,title,id):
     # 整改措施题目
     random_title = random.sample(reasonDict.keys(),1)[0]
     while random_title == title:
         random_title = random.sample(reasonDict.keys(),1)[0]
 
     measure_list = get_zhenggaicuoshi(text)
-    add_measure2dict(reasonDict,title,measure_list)
+    if id == "":
+        add_measure2dict(reasonDict,title,measure_list)
     
     dict = {}
     if len(measure_list) <3 and len(measure_list) > 0:

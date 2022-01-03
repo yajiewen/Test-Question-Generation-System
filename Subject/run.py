@@ -24,6 +24,11 @@ app.config["JSON_AS_ASCII"] = False
 def getquestion():
     if request.method == 'POST':
         data = request.form['text']
+        id=""
+        try:
+            id = request.form['id']
+        except Exception as e:
+            id = ""
         data = cleanData(data)
 
         entityDict = pickle.load(open(entityDictFileName,'rb'))
@@ -35,18 +40,18 @@ def getquestion():
         if anlitimu:
             questiondict['case'] = anlitimu
         # 获取原因题目
-        yuanyingtimu = get_all_reason_timu(data,reasonDict)
+        yuanyingtimu = get_all_reason_timu(data,reasonDict,id)
         if yuanyingtimu:
             questiondict['reason'] = yuanyingtimu
         # 获取措施题目
-        cuoshitimu = get_all_measure_timu(data,reasonDict)
+        cuoshitimu = get_all_measure_timu(data,reasonDict,id)
         if cuoshitimu:
             questiondict['measure'] = cuoshitimu
 
         # 关闭可写
         title = get_title(data)
         close_write(reasonDict,title)
-        print(reasonDict)
+        # print(reasonDict)
         pickle.dump(entityDict,open(entityDictFileName,'wb'))
         pickle.dump(reasonDict,open(reasonDictFileName,'wb'))
 
